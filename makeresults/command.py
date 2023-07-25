@@ -1,7 +1,8 @@
 import pandas as pd
-from otlang.sdk.syntax import Keyword, Positional, OTLType
+from otlang.sdk.syntax import Keyword, OTLType
 from pp_exec_env.base_command import BaseCommand, Syntax
 import time
+
 
 class MakeresultsCommand(BaseCommand):
     # define syntax of your command here
@@ -18,9 +19,11 @@ class MakeresultsCommand(BaseCommand):
         count = self.get_arg("count").value or 1
         annotate = self.get_arg("annotate").value or False
         _time = int(time.time())
-        data = {"_time": _time}
+        data = {"_time": [_time]*count}
         if annotate:
-            annot_data = {""}
-        self.log_progress(f"{_time=}")
+            annot_data = {"_raw": [None]*count, "host": [None]*count, "source": [None]*count, "sourcetype": [None]*count}
+            data = data | annot_data
+        df = pd.DataFrame(data)
+        self.log_progress(f"{data=}")
         self.log_progress(f"{annotate=}")
         return df
