@@ -24,6 +24,4 @@ class MakeresultsCommand(BaseCommand):
             annot_data = {"_raw": [None]*count, "host": [None]*count, "source": [None]*count, "sourcetype": [None]*count}
             data = data | annot_data
         df = pd.DataFrame(data)
-        self.log_progress(f"{data=}")
-        self.log_progress(f"{annotate=}")
         return df
