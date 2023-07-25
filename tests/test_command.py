@@ -30,12 +30,14 @@ class TestCommand(TestCase):
                 result = capture(test_string)
                 # Checking if length of resulting dataframe is correct
                 self.assertEqual(len(sample), len(result))
-
                 for k in range(1, i):
                     if j:
                         for m in range(1, 4):
                             # Checking if non _time fields are None
                             self.assertEqual('None', result[k][m])
+                    else:
+                        # Checking if there is only _time when annotate is False
+                        self.assertEqual(len(result[k]), 1)
 
                     # Checking if _time is somewhere near actual value
                     self.assertTrue(sample[k][0] <= int(result[k][0]) <= sample[k][0]+100)
