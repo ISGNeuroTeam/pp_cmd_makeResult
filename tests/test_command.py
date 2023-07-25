@@ -34,15 +34,18 @@ class TestCommand(TestCase):
                     if j:
                         for m in range(1, 4):
                             # Checking if non _time fields are None
-                            self.assertEqual('None', result[k][m])
+                            self.assertEqual("None", result[k][m])
                     else:
                         # Checking if there is only _time when annotate is False
                         self.assertEqual(len(result[k]), 1)
 
                     # Checking if _time is somewhere near actual value
-                    self.assertTrue(sample[k][0] <= int(result[k][0]) <= sample[k][0]+100)
+                    self.assertTrue(sample[k][0]
+                                    <= int(result[k][0])
+                                    <= sample[k][0]+100)
 
                     if k > 1:
-                        # Checking if _time is the same throughout the whole dataframe
+                        # Checking if _time is the same
+                        # throughout the whole dataframe
                         self.assertEqual(result[k][0], result[k-1][0])
 
